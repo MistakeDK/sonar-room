@@ -1,0 +1,38 @@
+{
+  "name": "sonar-room",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nx run desktop:dev",
+    "build": "nx run desktop:build",
+    "tauri": "nx run desktop:tauri",
+    "lint": "nx run desktop:lint",
+    "test": "nx run desktop:test",
+    "lint:boundaries": "eslint apps libs --ext .ts,.vue"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^2.3.0",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "@types/node": "^20.14.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "autoprefixer": "^10.4.0",
+    "nx": "19.8.4",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.4.0",
+    "vite": "^5.0.0",
+    "vue-tsc": "^2.0.0",
+    "@nx/eslint-plugin": "19.8.4",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "vue-eslint-parser": "^9.4.3"
+  },
+  "packageManager": "pnpm@9.0.0"
+}

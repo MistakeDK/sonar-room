@@ -28,3 +28,5 @@ scripts/bin/harness-cli.exe
 .harness/*
 !.harness/changesets/
 !.harness/changesets/*.changeset.jsonl
+
+.nx/

@@ -84,6 +84,43 @@ surfaces/
 This is a thinking template, not a scaffold. Create real folders only when a
 story enters implementation and the selected stack needs them.
 
+## Thin Apps Rule
+
+Apps are runtime composition shells, not business-logic owners.
+
+```text
+apps/*
+  -> compose routes, windows, providers, and UI entrypoints
+  -> parse platform/runtime input at the edge
+  -> call libs through public package aliases
+  -> keep no auth, provider-management, catalog, playback, or persistence rules
+
+libs/*
+  -> own product/business behavior
+  -> expose narrow public entrypoints
+  -> stay testable without booting Tauri/Vue
+```
+
+Business-heavy code such as authentication flows, session rules, provider
+management, provider capability models, playback orchestration, local
+persistence policy, and account connection state belongs in libraries. The
+Tauri/Vue app should only adapt desktop shell events, render UI, and call these
+library APIs.
+
+Recommended library lanes:
+
+| Library | Owns | Must not own |
+| --- | --- | --- |
+| `libs/auth` | Auth/session use cases, auth state contracts, token-safe DTOs | Tauri windows, Vue components, provider SDK concrete clients |
+| `libs/provider-management` | Supported provider registry, capability rules, connection lifecycle use cases | UI layout, native shell APIs, raw provider SDK payloads |
+| `libs/application` | Cross-domain commands/queries and orchestration | UI state, database concrete clients, shell APIs |
+| `libs/domain` | Pure product types and rules | Framework, process/env, database, provider, UI |
+| `libs/infrastructure` | SQLite adapters, provider adapters, logging adapters | UI components or app shell state |
+| `libs/ui` | Shared UI primitives, design tokens, presentation-only behavior | Auth rules, provider orchestration, persistence policy |
+
+Apps may import public library entrypoints, but libraries must not import apps.
+Cross-library imports should follow the dependency rule below.
+
 ## Dependency Rule
 
 Inner layers must not depend on outer layers.

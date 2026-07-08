@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+.shell {
+  @apply grid min-h-screen gap-6 p-12;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at top left, hsl(var(--accent) / 0.18), transparent 32rem),
+    linear-gradient(135deg, hsl(var(--background)) 0%, #111827 50%, #18181b 100%);
+}
+
+.hero,
+.panel {
+  @apply max-w-[760px];
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  @apply mb-4 text-[clamp(3rem,10vw,7rem)] leading-[0.9];
+}
+
+h2 {
+  @apply m-0 text-base uppercase tracking-[0.08em];
+}
+
+.summary {
+  @apply max-w-[620px] text-lg leading-7 text-muted-foreground;
+}
+
+.hero-actions {
+  @apply mt-7 flex flex-wrap gap-3;
+}
+
+.panel {
+  @apply self-end p-6;
+}
+
+.panel-heading {
+  @apply mb-5 flex items-center justify-between gap-4;
+}
+
+.platforms {
+  @apply m-0 grid list-none gap-3.5 p-0;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.platforms li {
+  @apply grid gap-2 rounded-lg border border-border/70 bg-secondary/70 p-[18px];
+}
+
+.platforms span {
+  @apply font-bold;
+}
+
+.platforms small {
+  @apply text-muted-foreground;
+}
