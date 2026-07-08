@@ -4,6 +4,7 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "baseUrl": ".",
     "strict": true,
     "jsx": "preserve",
     "resolveJsonModule": true,
@@ -15,6 +16,12 @@
       "DOM.Iterable"
     ],
     "paths": {
+      "@sonar-room/types": [
+        "libs/types/src/index.ts"
+      ],
+      "@sonar-room/types/*": [
+        "libs/types/src/*"
+      ],
       "@sonar-room/ui": [
         "libs/ui/src/index.ts"
       ],

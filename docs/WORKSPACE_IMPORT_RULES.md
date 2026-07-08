@@ -16,6 +16,7 @@ Use package-style imports from app code:
 ```ts
 import { UiButton } from '@sonar-room/ui';
 import '@sonar-room/ui/styles.css';
+import type { JsonString } from '@sonar-room/types';
 ```
 
 Future business libs should follow the same pattern:
@@ -50,7 +51,18 @@ import { UiButton } from '../../libs/ui/src';
   orchestration go in `libs/provider-management` or another business lib.
 - SQLite adapters and provider SDK adapters go in `type:infrastructure` libs.
 - Vue components and design tokens stay in `libs/ui`.
+- Shared explicit type aliases and app-wide structural types stay in `libs/types`.
 - `apps/desktop` must not define durable business rules; it wires shell + UI + lib APIs.
+
+## Shared Types Library
+
+Use `@sonar-room/types` for app-wide type vocabulary that makes intent explicit
+without adding runtime behavior. Examples include `JsonString`, ISO date strings,
+entity IDs, `JsonValue`, `Result`, and nullable helper types.
+
+Keep `libs/types` free of Vue, Tauri, provider SDK, or persistence dependencies.
+Domain-specific types can move into their owning domain/application lib once a
+story needs behavior around them.
 
 ## Enforcement
 

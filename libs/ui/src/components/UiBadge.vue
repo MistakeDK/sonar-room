@@ -1,14 +1,14 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { computed } from 'vue';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '../lib/cn';
 
-const badgeVariants = cva('inline-flex w-fit items-center rounded-full border border-transparent px-3 py-1 text-xs font-extrabold uppercase leading-none tracking-widest', {
+const badgeVariants = cva('inline-flex w-fit items-center rounded-sm border px-brand-sm py-1 text-xs font-semibold leading-none transition-colors duration-mid', {
   variants: {
     variant: {
-      default: 'bg-primary text-primary-foreground',
-      secondary: 'bg-secondary text-secondary-foreground',
-      outline: 'border-border bg-transparent text-foreground',
+      default: 'border-primary bg-[var(--brand-color-primary-bg)] text-[var(--brand-color-primary-text)]',
+      secondary: 'border-border bg-secondary text-secondary-foreground',
+      outline: 'border-border bg-transparent text-muted-foreground',
     },
   },
   defaultVariants: {

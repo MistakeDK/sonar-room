@@ -30,3 +30,4 @@ scripts/bin/harness-cli.exe
 !.harness/changesets/*.changeset.jsonl
 
 .nx/
+.vscode
