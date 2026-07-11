@@ -9,6 +9,8 @@
     "src/**/*.vue",
     "vite.config.ts",
     "../../libs/ui/src/**/*.ts",
-    "../../libs/ui/src/**/*.vue"
+    "../../libs/ui/src/**/*.vue",
+    "../../libs/features/**/*.ts",
+    "../../libs/features/**/*.vue"
   ]
 }

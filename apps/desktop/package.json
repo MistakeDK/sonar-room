@@ -1,5 +1,9 @@
 {
   "name": "@sonar-room/desktop",
   "version": "0.1.0",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "pinia": "^3.0.4",
+    "vue-router": "^5.1.0"
+  }
 }

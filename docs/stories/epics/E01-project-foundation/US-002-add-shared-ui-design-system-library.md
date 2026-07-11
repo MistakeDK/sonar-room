@@ -10,7 +10,7 @@ normal
 
 ## Product Contract
 
-The project has a reusable shared UI library that provides shadcn-style Vue primitives and design tokens for app surfaces. The desktop app consumes this shared library instead of owning all UI primitives locally. Open Design remains the visual design-system source of truth; until the daemon/artifact is available, the library uses a compatible token layer that can be replaced or synced from Open Design without changing app call sites.
+The project has a reusable shared UI library that provides shadcn-vue-backed Vue primitives and design tokens for app surfaces. The desktop app consumes this shared library instead of owning reusable UI primitives locally. Every app or feature component must first reuse public `@sonar-room/ui` atoms, tokens, and presentation helpers; new reusable patterns are promoted into `libs/ui`. Open Design remains the visual design-system source of truth; until the daemon/artifact is available, the library uses a compatible token layer that can be replaced or synced from Open Design without changing app call sites.
 
 ## Relevant Product Docs
 
@@ -18,12 +18,17 @@ The project has a reusable shared UI library that provides shadcn-style Vue prim
 - `docs/ARCHITECTURE.md`
 - `docs/decisions/0008-desktop-tech-stack.md`
 - `docs/decisions/0009-thin-apps-and-business-libraries.md`
+- `docs/decisions/0010-atomic-shared-ui-composition.md`
+- `docs/WORKSPACE_IMPORT_RULES.md`
 
 ## Acceptance Criteria
 
 - Shared UI library exists under `libs/ui` and is discoverable by Nx.
 - Root TypeScript config exposes `@sonar-room/ui`, `@sonar-room/ui/*`, and `@sonar-room/ui/styles.css` aliases.
-- Shared UI exports shadcn-style Vue primitives for button, card, and badge usage using Tailwind utility classes.
+- Shared UI exports shadcn-vue-backed Vue primitives for button, card, and badge usage using Tailwind utility classes.
+- `libs/ui` is the only layer that owns shadcn-vue registry artifacts, adapters, primitive dependencies, and public wrapper exports.
+- New app or feature components reuse public `@sonar-room/ui` atoms/tokens first; reusable visual patterns move to `libs/ui`, while page-only composition may remain local with a documented story exception.
+- Open Design imports map artifact regions to existing shared exports before coding; reusable additions from the design land in `libs/ui`, never as copied app-local primitives.
 - Shared UI owns Tailwind CSS entrypoint and shadcn-compatible CSS variables for color, radius, border, ring, and shadow.
 - Desktop app imports UI tokens/components from `@sonar-room/ui` and keeps product-specific layout in `apps/desktop` while Nx/ESLint boundaries prevent cross-project relative imports.
 - Open Design design-system sync is blocked only by unavailable Open Design daemon/artifact, not by app structure.
@@ -34,7 +39,7 @@ The project has a reusable shared UI library that provides shadcn-style Vue prim
 - Queries: none.
 - API: none.
 - Tables: none.
-- Domain rules: UI library must not encode provider playback/auth behavior.
+- Domain rules: UI library must not encode provider playback/auth behavior. UI implementation uses atomic composition: shared atoms/tokens first, page composition second.
 - UI surfaces: desktop launcher uses `UiBadge`, `UiButton`, and `UiCard` primitives.
 
 ## Validation
@@ -52,7 +57,7 @@ When updating durable proof status, use numeric booleans:
 
 ## Workspace Import Rules
 
-- `docs/WORKSPACE_IMPORT_RULES.md` documents package-style imports, thin-app placement, and dependency tag constraints.
+- `docs/WORKSPACE_IMPORT_RULES.md` documents package-style imports, thin-app placement, dependency tag constraints, atomic shared-UI reuse, shadcn-vue ownership, and Open Design import rules.
 - `eslint.config.mjs` enforces Nx module boundaries for apps and libs.
 - `nx.json` makes lint targets follow project dependency order with `dependsOn: ['^lint']`.
 - Business logic such as auth and provider management belongs in libs, while `apps/desktop` stays a thin shell.

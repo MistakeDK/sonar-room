@@ -9,11 +9,15 @@ const moduleBoundaryRule = [
     depConstraints: [
       {
         sourceTag: 'type:app',
-        onlyDependOnLibsWithTags: ['scope:shared', 'type:ui', 'type:application'],
+        onlyDependOnLibsWithTags: ['scope:shared', 'type:ui', 'type:feature', 'type:application'],
       },
       {
         sourceTag: 'scope:desktop',
-        onlyDependOnLibsWithTags: ['scope:shared', 'type:ui', 'type:application'],
+        onlyDependOnLibsWithTags: ['scope:shared', 'type:ui', 'type:feature', 'type:application'],
+      },
+      {
+        sourceTag: 'type:feature',
+        onlyDependOnLibsWithTags: ['scope:shared', 'type:ui', 'type:feature', 'type:application', 'type:domain'],
       },
       {
         sourceTag: 'type:application',

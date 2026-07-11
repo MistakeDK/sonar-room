@@ -15,6 +15,14 @@ export default defineConfig({
         find: '@sonar-room/ui',
         replacement: fileURLToPath(new URL('../../libs/ui/src/index.ts', import.meta.url)),
       },
+      {
+        find: '@sonar-room/features/app-shell',
+        replacement: fileURLToPath(new URL('../../libs/features/app-shell/src/index.ts', import.meta.url)),
+      },
+      {
+        find: '@sonar-room/features/launcher',
+        replacement: fileURLToPath(new URL('../../libs/features/launcher/src/index.ts', import.meta.url)),
+      },
     ],
   },
   server: {

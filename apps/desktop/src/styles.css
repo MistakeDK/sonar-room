@@ -6,3 +6,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+#app {
+  min-height: 100vh;
+}

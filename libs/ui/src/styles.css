@@ -4,6 +4,7 @@
 @source "../../../apps/desktop/index.html";
 @source "../../../apps/desktop/src/**/*.{vue,ts}";
 @source "./**/*.{vue,ts}";
+@source "../../features/**/*.{vue,ts}";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -198,4 +199,52 @@
   .sr-ui-theme {
     @apply bg-background text-foreground;
   }
+}
+:root.dark {
+  --brand-color-primary-bg: #0c4a6e;
+  --brand-color-primary-bg-hover: #075985;
+  --brand-color-primary-border: #0369a1;
+  --brand-color-primary-border-hover: #0284c7;
+  --brand-color-primary-hover: #38bdf8;
+  --brand-color-primary-text: #e0f2fe;
+  --brand-color-text: #f4f4f5;
+  --brand-color-text-secondary: #d4d4d8;
+  --brand-color-text-tertiary: #a1a1aa;
+  --brand-color-fill: #3f3f46;
+  --brand-color-fill-secondary: #27272a;
+  --brand-color-fill-tertiary: #202023;
+  --brand-color-fill-quaternary: #18181b;
+  --brand-color-bg-layout: #18181b;
+  --brand-color-bg-container: #27272a;
+  --brand-color-bg-elevated: #27272a;
+  --brand-color-border: #3f3f46;
+  --brand-color-border-secondary: #27272a;
+  --background: hsl(240 6% 10%);
+  --foreground: hsl(0 0% 96%);
+  --card: hsl(240 4% 16%);
+  --card-foreground: hsl(0 0% 96%);
+  --popover: hsl(240 4% 16%);
+  --popover-foreground: hsl(0 0% 96%);
+  --primary: hsl(199 89% 55%);
+  --primary-foreground: hsl(240 6% 10%);
+  --secondary: hsl(240 4% 22%);
+  --secondary-foreground: hsl(0 0% 96%);
+  --muted: hsl(240 4% 20%);
+  --muted-foreground: hsl(240 5% 70%);
+  --accent: hsl(199 89% 55%);
+  --accent-foreground: hsl(240 6% 10%);
+  --accent-secondary: hsl(240 4% 22%);
+  --destructive: hsl(0 72% 57%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(240 4% 28%);
+  --input: hsl(240 4% 28%);
+  --ring: hsl(199 89% 55%);
+  --sidebar: hsl(240 6% 10%);
+  --sidebar-foreground: hsl(0 0% 96%);
+  --sidebar-primary: hsl(199 89% 55%);
+  --sidebar-primary-foreground: hsl(240 6% 10%);
+  --sidebar-accent: hsl(240 4% 22%);
+  --sidebar-accent-foreground: hsl(0 0% 96%);
+  --sidebar-border: hsl(240 4% 28%);
+  --sidebar-ring: hsl(199 89% 55%);
 }

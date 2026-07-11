@@ -1,0 +1,24 @@
+{
+  "name": "feature-app-shell",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/app-shell/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/features/app-shell/tsconfig.lib.json --noEmit && eslint \"libs/features/app-shell/src/**/*.{ts,vue}\""
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p libs/features/app-shell/tsconfig.lib.json --noEmit"
+      }
+    }
+  },
+  "tags": [
+    "scope:shared",
+    "type:feature"
+  ]
+}

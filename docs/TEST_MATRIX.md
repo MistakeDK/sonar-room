@@ -2,9 +2,6 @@
 
 This file maps product behavior to proof.
 
-No product behavior has been defined or implemented yet. Do not mark a row
-implemented until tests or validation evidence exist.
-
 ## Status Values
 
 | Status | Meaning |
@@ -19,7 +16,8 @@ implemented until tests or validation evidence exist.
 
 | Story | Contract | Unit | Integration | E2E | Platform | Status | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| TBD | Add rows when story packets are created | no | no | no | no | planned | none |
+| US-003 | Vue Router launcher and fallback routes, Pinia presentation preferences, persisted dark/light/system shared UI theme | no | yes | no | no | implemented | `pnpm.cmd test`, `pnpm.cmd build`, `pnpm.cmd lint`, and `pnpm.cmd lint:boundaries` passed on July 11, 2026; manual Tauri proof pending. |
+| US-004 | Shared launcher feature and theme-helper libraries keep desktop app shell thin | no | yes | no | no | implemented | Desktop type checks, Vite build, feature lint targets, boundary lint, and Nx project discovery passed on July 11, 2026; manual Tauri proof pending. |
 
 ## Evidence Rules
 

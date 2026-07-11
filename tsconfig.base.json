@@ -30,6 +30,18 @@
       ],
       "@sonar-room/ui/*": [
         "libs/ui/src/*"
+      ],
+      "@sonar-room/features/app-shell": [
+        "libs/features/app-shell/src/index.ts"
+      ],
+      "@sonar-room/features/app-shell/*": [
+        "libs/features/app-shell/src/*"
+      ],
+      "@sonar-room/features/launcher": [
+        "libs/features/launcher/src/index.ts"
+      ],
+      "@sonar-room/features/launcher/*": [
+        "libs/features/launcher/src/*"
       ]
     }
   }

@@ -4,7 +4,7 @@ export type SupportedPlatform = {
   launchMode: 'pending-integration-story';
 };
 
-export type AppConfig = {
+export type LauncherConfig = {
   productName: string;
   localDataStore: 'sqlite';
   supportedPlatforms: SupportedPlatform[];
@@ -12,7 +12,7 @@ export type AppConfig = {
 
 const configuredProductName = import.meta.env.VITE_PRODUCT_NAME;
 
-export const APP_CONFIG: AppConfig = {
+export const LAUNCHER_CONFIG: LauncherConfig = {
   productName: configuredProductName?.trim() || 'Sonar Room',
   localDataStore: 'sqlite',
   supportedPlatforms: [

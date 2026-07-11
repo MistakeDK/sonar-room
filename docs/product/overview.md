@@ -1,4 +1,4 @@
-﻿# Product Overview
+# Product Overview
 
 ## Goal
 
@@ -31,6 +31,13 @@ app and listen to music from those platforms in a single place.
 - SQLite is used only for local app data on the user's machine.
 - Nx monorepo manages build orchestration, caching, and source organization.
 
+## Application Foundation
+
+- Vue Router uses hash-based client-side navigation for desktop static assets. The launcher route is /; unknown client routes return to it.
+- Presentation preference supports light, dark, and system modes. Preference uses browser-safe local storage, not SQLite product-data persistence.
+- Pinia owns app-wide presentation preferences only. Provider, authentication, playback, and persistence business rules remain outside app shell state.
+- Reusable launcher screen composition and theme helpers live in `libs/features/*`; `apps/desktop` keeps only bootstrap, route control, and Tauri platform edges.
+
 ## Product Questions
 
 - Should playback happen through embedded web views, provider SDKs, or deep
@@ -38,4 +45,3 @@ app and listen to music from those platforms in a single place.
 - What account connection model is required for each platform?
 - What local data is safe and useful to persist in SQLite?
 - What minimum playback controls belong in Phase 1?
-

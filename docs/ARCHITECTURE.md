@@ -1,4 +1,4 @@
-﻿# Architecture
+# Architecture
 
 The Phase 1 desktop stack is Tauri for the desktop wrapper, Vue.js for the UI,
 SQLite for local-only app data, and Nx monorepo for build orchestration,
@@ -117,9 +117,47 @@ Recommended library lanes:
 | `libs/domain` | Pure product types and rules | Framework, process/env, database, provider, UI |
 | `libs/infrastructure` | SQLite adapters, provider adapters, logging adapters | UI components or app shell state |
 | `libs/ui` | Shared UI primitives, design tokens, presentation-only behavior | Auth rules, provider orchestration, persistence policy |
+| `libs/features/*` | Reusable feature composition, feature-local presentation state, public screen modules | Tauri shell wiring, app bootstrap, duplicated shared UI atoms, cross-feature business orchestration |
 
 Apps may import public library entrypoints, but libraries must not import apps.
 Cross-library imports should follow the dependency rule below.
+
+## Shared UI Composition Rule
+
+Treat `libs/ui` as the sole owner of reusable visual building blocks and design
+system tokens. Before creating or changing a Vue component, use this order:
+
+1. Reuse a public atom, primitive, token, or presentation helper from
+   `@sonar-room/ui`.
+2. Compose the needed screen-specific layout from those shared exports in the
+   app or feature view.
+3. When no export fits, add or extend a reusable atom, molecule, organism, or
+   token in `libs/ui` first, then consume its public `@sonar-room/ui` export.
+4. Keep a component local only when it is one product surface's page
+   composition and has no reusable visual or interaction contract. Local
+   components still compose shared UI atoms wherever possible.
+
+`libs/ui` owns the project's shadcn-vue integration. shadcn-vue registry
+artifacts, adapters, and primitive dependencies are added or wrapped only in
+`libs/ui`; apps and feature libraries import the resulting public
+`@sonar-room/ui` API instead of importing shadcn-vue or copying its generated
+components directly. This keeps component call sites stable when generated
+shadcn-vue code, tokens, or dependencies change.
+
+## Open Design Translation Rule
+
+Open Design artifacts are visual intent, not a second component architecture.
+Before porting an Open Design screen, inspect `@sonar-room/ui` and map artifact
+regions to existing shared atoms, molecules, organisms, and tokens. Preserve
+page composition in the app, but promote any new reusable visual primitive,
+interaction pattern, token, or responsive behavior into `libs/ui` before use.
+
+Do not copy Open Design HTML, JSX, CSS, or generated components into an app as
+new local primitives when an equivalent shared export exists or can be added.
+Record any deliberate local-component exception in the story design notes with
+its single-surface reason. Open Design implementation tasks must read
+`docs/WORKSPACE_IMPORT_RULES.md` and follow the project `open-design-implement`
+skill in addition to artifact discovery.
 
 ## Dependency Rule
 

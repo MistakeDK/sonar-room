@@ -3,6 +3,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sonar Room</title>
+    <script>
+      (() => {
+        const storageKey = 'sonar-room.theme-preference';
+        let preference = 'system';
+
+        try {
+          const savedPreference = window.localStorage.getItem(storageKey);
+          if (savedPreference === 'light' || savedPreference === 'dark' || savedPreference === 'system') {
+            preference = savedPreference;
+          }
+        } catch {
+        }
+
+        const isDark = preference === 'dark'
+          || (preference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        document.documentElement.classList.toggle('dark', isDark);
+        document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>

@@ -17,6 +17,7 @@ Use package-style imports from app code:
 import { UiButton } from '@sonar-room/ui';
 import '@sonar-room/ui/styles.css';
 import type { JsonString } from '@sonar-room/types';
+import { LauncherFeature } from '@sonar-room/features/launcher';
 ```
 
 Future business libs should follow the same pattern:
@@ -36,8 +37,9 @@ import { UiButton } from '../../libs/ui/src';
 
 | Tag | Meaning | May Depend On |
 | --- | --- | --- |
-| `type:app` | Runnable app surface | `scope:shared`, `type:ui`, `type:application` libs |
-| `scope:desktop` | Desktop app surface | `scope:shared`, `type:ui`, `type:application` libs |
+| `type:app` | Runnable app surface | `scope:shared`, `type:ui`, `type:feature`, `type:application` libs |
+| `scope:desktop` | Desktop app surface | `scope:shared`, `type:ui`, `type:feature`, `type:application` libs |
+| `type:feature` | Reusable feature screen composition and presentation helpers | `scope:shared`, `type:ui`, `type:feature`, `type:application`, `type:domain` libs |
 | `type:application` | App use cases and orchestration | `type:domain`, `scope:shared` libs |
 | `type:domain` | Pure business rules and product types | Other `type:domain` or `scope:shared` libs |
 | `type:infrastructure` | SQLite/provider/logging adapters | `type:domain`, `type:application`, `scope:shared` libs |
@@ -50,9 +52,41 @@ import { UiButton } from '../../libs/ui/src';
 - Provider registry, connection lifecycle, provider capability rules, and playback
   orchestration go in `libs/provider-management` or another business lib.
 - SQLite adapters and provider SDK adapters go in `type:infrastructure` libs.
-- Vue components and design tokens stay in `libs/ui`.
+- Reusable UI atoms, tokens, and shadcn-vue wrappers stay in `libs/ui`.
+- Reusable feature screen composition and feature-local presentation helpers stay in `libs/features/*`.
 - Shared explicit type aliases and app-wide structural types stay in `libs/types`.
 - `apps/desktop` must not define durable business rules; it wires shell + UI + lib APIs.
+
+## Atomic Shared UI Rule
+
+Use `@sonar-room/ui` before creating a visual component in `apps/*` or another
+library. The required order is:
+
+1. Reuse an exported shared atom, primitive, token, or presentation helper.
+2. Compose local page layout from those exports.
+3. Add or extend a reusable shared component in `libs/ui` when existing exports
+   do not fit.
+4. Keep a component local only for one page's product-specific composition;
+   document why it cannot be reused in the story design notes.
+
+`libs/ui` owns atoms, reusable molecules/organisms, design tokens, and
+shadcn-vue integration. Apps must import only public `@sonar-room/ui` exports.
+Do not add direct shadcn-vue imports, registry-generated component files, or
+copied primitive implementations under `apps/*`.
+
+## Open Design Import Rule
+
+When pulling a screen or artifact from Open Design:
+
+- Treat artifact files as design intent, not a local component library.
+- Inspect `@sonar-room/ui` before writing UI code and map each artifact region
+  to existing shared exports where possible.
+- Reuse shared tokens and primitives first; promote missing reusable tokens,
+  visual patterns, interaction states, or responsive behavior into `libs/ui`.
+- Keep only screen composition and product-specific copy/data binding in app
+  views.
+- Record a story design-note exception for every new local visual primitive,
+  including why no shared component applies.
 
 ## Shared Types Library
 
