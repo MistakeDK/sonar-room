@@ -1,4 +1,4 @@
-# Harness durable layer — each project instance generates its own data.
+# Harness durable layer â€” each project instance generates its own data.
 harness.db
 harness.db-wal
 harness.db-shm
@@ -31,3 +31,4 @@ scripts/bin/harness-cli.exe
 
 .nx/
 .vscode
+.pnpm-store/

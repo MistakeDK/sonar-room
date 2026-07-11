@@ -31,7 +31,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p apps/desktop/tsconfig.app.json --noEmit && eslint apps/desktop/src libs/ui/src --ext .ts,.vue"
+        "command": "tsc -p apps/desktop/tsconfig.app.json --noEmit && eslint \"apps/desktop/src/**/*.{ts,vue}\" \"libs/ui/src/**/*.{ts,vue}\""
       }
     },
     "test": {

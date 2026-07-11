@@ -47,7 +47,7 @@ export default [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: ['./tsconfig.base.json'],
+        project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: import.meta.dirname,
         sourceType: 'module',
       },
@@ -62,9 +62,6 @@ export default [
       parser: vueParser,
       parserOptions: {
         parser: tsParser,
-        project: ['./tsconfig.base.json'],
-        tsconfigRootDir: import.meta.dirname,
-        extraFileExtensions: ['.vue'],
         sourceType: 'module',
       },
     },

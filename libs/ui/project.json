@@ -7,7 +7,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p libs/ui/tsconfig.lib.json --noEmit && eslint libs/ui/src --ext .ts,.vue"
+        "command": "tsc -p libs/ui/tsconfig.lib.json --noEmit && eslint \"libs/ui/src/**/*.{ts,vue}\""
       }
     },
     "test": {

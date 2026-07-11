@@ -7,7 +7,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p libs/types/tsconfig.lib.json --noEmit && eslint libs/types/src --ext .ts"
+        "command": "tsc -p libs/types/tsconfig.lib.json --noEmit && eslint \"libs/types/src/**/*.ts\""
       }
     },
     "test": {
