@@ -9,17 +9,24 @@
     "tauri": "nx run desktop:tauri",
     "lint": "nx run desktop:lint",
     "test": "nx run desktop:test",
-    "lint:boundaries": "eslint \"apps/**/*.{ts,vue}\" \"libs/**/*.{ts,vue}\""
+    "lint:boundaries": "eslint \"apps/**/*.{ts,vue}\" \"libs/**/*.{ts,vue}\"",
+    "ui:add": "shadcn-vue add"
   },
   "dependencies": {
+    "@lucide/vue": "^1.24.0",
     "@tauri-apps/api": "^2.0.0",
+    "@vueuse/core": "^14.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "pinia": "^3.0.4",
+    "reka-ui": "^2.10.1",
     "tailwind-merge": "^3.4.0",
-    "vue": "^3.4.0"
+    "vue": "^3.4.0",
+    "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@nx/eslint-plugin": "19.8.4",
+    "@tailwindcss/postcss": "^4.0.0",
     "@tauri-apps/cli": "^2.0.0",
     "@types/node": "^20.14.0",
     "@typescript-eslint/parser": "^7.18.0",
@@ -27,13 +34,13 @@
     "eslint": "^8.57.0",
     "nx": "19.8.4",
     "postcss": "^8.4.0",
+    "shadcn-vue": "^2.7.4",
     "tailwindcss": "^4.0.0",
+    "tw-animate-css": "^1.3.0",
     "typescript": "^5.4.0",
     "vite": "^5.0.0",
     "vue-eslint-parser": "^9.4.3",
-    "vue-tsc": "^2.0.0",
-    "@tailwindcss/postcss": "^4.0.0",
-    "tw-animate-css": "^1.3.0"
+    "vue-tsc": "^2.0.0"
   },
   "packageManager": "pnpm@9.0.0"
 }

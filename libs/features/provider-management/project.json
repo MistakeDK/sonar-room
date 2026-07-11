@@ -1,0 +1,24 @@
+{
+  "name": "feature-provider-management",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/provider-management/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vue-tsc -p libs/features/provider-management/tsconfig.lib.json --noEmit && eslint \"libs/features/provider-management/src/**/*.{ts,vue}\""
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vue-tsc -p libs/features/provider-management/tsconfig.lib.json --noEmit"
+      }
+    }
+  },
+  "tags": [
+    "scope:shared",
+    "type:feature"
+  ]
+}

@@ -31,13 +31,13 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p apps/desktop/tsconfig.app.json --noEmit && eslint \"apps/desktop/src/**/*.{ts,vue}\" \"libs/ui/src/**/*.{ts,vue}\" \"libs/features/**/*.{ts,vue}\""
+        "command": "vue-tsc -p apps/desktop/tsconfig.app.json --noEmit && eslint \"apps/desktop/src/**/*.{ts,vue}\" \"libs/ui/src/**/*.{ts,vue}\" \"libs/features/**/*.{ts,vue}\""
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p apps/desktop/tsconfig.app.json --noEmit"
+        "command": "vue-tsc -p apps/desktop/tsconfig.app.json --noEmit"
       }
     }
   },

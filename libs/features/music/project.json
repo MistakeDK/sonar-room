@@ -1,19 +1,19 @@
 {
-  "name": "feature-launcher",
+  "name": "feature-music",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/features/launcher/src",
+  "sourceRoot": "libs/features/music/src",
   "targets": {
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p libs/features/launcher/tsconfig.lib.json --noEmit && eslint \"libs/features/launcher/src/**/*.{ts,vue}\""
+        "command": "tsc -p libs/features/music/tsconfig.lib.json --noEmit && eslint \"libs/features/music/src/**/*.{ts,vue}\""
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc -p libs/features/launcher/tsconfig.lib.json --noEmit"
+        "command": "tsc -p libs/features/music/tsconfig.lib.json --noEmit"
       }
     }
   },

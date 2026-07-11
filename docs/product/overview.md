@@ -36,7 +36,8 @@ app and listen to music from those platforms in a single place.
 - Vue Router uses hash-based client-side navigation for desktop static assets. The launcher route is /; unknown client routes return to it.
 - Presentation preference supports light, dark, and system modes. Preference uses browser-safe local storage, not SQLite product-data persistence.
 - Pinia owns app-wide presentation preferences only. Provider, authentication, playback, and persistence business rules remain outside app shell state.
-- Reusable launcher screen composition and theme helpers live in `libs/features/*`; `apps/desktop` keeps only bootstrap, route control, and Tauri platform edges.
+- Reusable provider-management screen composition and theme helpers live in `libs/features/*`; `apps/desktop` keeps only bootstrap, route control, and Tauri platform edges.
+- Provider Management currently renders static connection fixtures from accepted Open Design visual intent, including a dashed add-provider slot after the provider cards; provider API, account, playback, and connection actions remain out of scope.
 
 ## Product Questions
 

@@ -9,6 +9,7 @@
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "skipLibCheck": true,
     "noEmit": true,
     "lib": [
       "ES2022",
@@ -37,11 +38,17 @@
       "@sonar-room/features/app-shell/*": [
         "libs/features/app-shell/src/*"
       ],
-      "@sonar-room/features/launcher": [
-        "libs/features/launcher/src/index.ts"
+      "@sonar-room/features/music": [
+        "libs/features/music/src/index.ts"
       ],
-      "@sonar-room/features/launcher/*": [
-        "libs/features/launcher/src/*"
+      "@sonar-room/features/music/*": [
+        "libs/features/music/src/*"
+      ],
+      "@sonar-room/features/provider-management": [
+        "libs/features/provider-management/src/index.ts"
+      ],
+      "@sonar-room/features/provider-management/*": [
+        "libs/features/provider-management/src/*"
       ]
     }
   }

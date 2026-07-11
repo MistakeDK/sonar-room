@@ -76,6 +76,8 @@
   --brand-control-height-sm: 24px;
   --brand-control-height: 32px;
   --brand-control-height-lg: 40px;
+  --brand-layout-sidebar-width: 256px;
+  --brand-layout-filter-min-width: 256px;
   --brand-motion-duration-fast: 0.1s;
   --brand-motion-duration-mid: 0.2s;
   --brand-motion-duration-slow: 0.3s;
@@ -127,6 +129,7 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-primary-text: var(--brand-color-primary-text);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -159,12 +162,17 @@
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
+  --spacing-brand-xxs: var(--brand-size-xxs);
   --spacing-brand: var(--brand-size);
   --spacing-brand-xs: var(--brand-size-xs);
   --spacing-brand-sm: var(--brand-size-sm);
   --spacing-brand-md: var(--brand-size-md);
   --spacing-brand-lg: var(--brand-size-lg);
   --spacing-brand-xl: var(--brand-size-xl);
+  --spacing-brand-xxl: var(--brand-size-xxl);
+  --spacing-control: var(--brand-control-height);
+  --spacing-control-lg: var(--brand-control-height-lg);
+  --breakpoint-provider: 981px;
   --shadow-elevated: var(--brand-shadow-elevated);
   --duration-fast: var(--brand-motion-duration-fast);
   --duration-mid: var(--brand-motion-duration-mid);

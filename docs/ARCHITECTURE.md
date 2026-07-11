@@ -91,6 +91,7 @@ Apps are runtime composition shells, not business-logic owners.
 ```text
 apps/*
   -> compose routes, windows, providers, and UI entrypoints
+  -> initialize configuration-only state for router, UI providers, and preferences
   -> parse platform/runtime input at the edge
   -> call libs through public package aliases
   -> keep no auth, provider-management, catalog, playback, or persistence rules
@@ -104,8 +105,9 @@ libs/*
 Business-heavy code such as authentication flows, session rules, provider
 management, provider capability models, playback orchestration, local
 persistence policy, and account connection state belongs in libraries. The
-Tauri/Vue app should only adapt desktop shell events, render UI, and call these
-library APIs.
+Tauri/Vue app should only adapt desktop shell events, render UI, initialize
+configuration-only state such as router and preferences, and call these library
+APIs. App configuration state must not contain feature state or product rules.
 
 Recommended library lanes:
 
@@ -124,18 +126,18 @@ Cross-library imports should follow the dependency rule below.
 
 ## Shared UI Composition Rule
 
-Treat `libs/ui` as the sole owner of reusable visual building blocks and design
-system tokens. Before creating or changing a Vue component, use this order:
+Treat `libs/ui` as the sole owner of reusable atomic visual building blocks and
+design system tokens. Before creating or changing a Vue component, use this order:
 
 1. Reuse a public atom, primitive, token, or presentation helper from
    `@sonar-room/ui`.
-2. Compose the needed screen-specific layout from those shared exports in the
-   app or feature view.
-3. When no export fits, add or extend a reusable atom, molecule, organism, or
-   token in `libs/ui` first, then consume its public `@sonar-room/ui` export.
-4. Keep a component local only when it is one product surface's page
-   composition and has no reusable visual or interaction contract. Local
-   components still compose shared UI atoms wherever possible.
+2. Compose the needed screen-specific layout from those shared exports in a feature
+   page module.
+3. When no export fits, add or extend a reusable atomic component or token in
+   `libs/ui` first, then consume its public `@sonar-room/ui` export.
+4. Keep a component local only when it belongs to one feature page composition
+   and has no reusable cross-feature contract. Local components still compose
+   shared UI atoms wherever possible.
 
 `libs/ui` owns the project's shadcn-vue integration. shadcn-vue registry
 artifacts, adapters, and primitive dependencies are added or wrapped only in
@@ -144,16 +146,45 @@ artifacts, adapters, and primitive dependencies are added or wrapped only in
 components directly. This keeps component call sites stable when generated
 shadcn-vue code, tokens, or dependencies change.
 
+## Atomic -> Modular -> Page UI Rule
+
+Organize product UI in this dependency direction:
+
+```text
+libs/ui atomic components
+  -> libs/features/<feature> modular components
+  -> libs/features/<feature> page modules
+  -> apps/* route wiring and configuration initialization only
+```
+
+- **Atomic:** `libs/ui` owns atomic components, tokens, and shadcn-vue
+  integration. Add registry components through the shadcn CLI into `libs/ui`;
+  consume them through public `@sonar-room/ui` exports. Prefer the smallest
+  necessary change to generated shadcn code. When shadcn provides a primitive,
+  install and use it; never hand-create replacements such as buttons, cards,
+  toggles, switches, or equivalent existing primitives. A custom atomic
+  component is allowed only when shadcn cannot express the need and the story
+  records an exception.
+- **Modular:** `libs/features/<feature>` owns components that compose multiple
+  atomic exports. It may own feature-local logic and state, but must not copy
+  atomic components or absorb cross-feature business orchestration.
+- **Page:** `libs/features/<feature>` owns page modules that compose modular
+  components for one product surface. `apps/*` registers routes, initializes
+  configuration-only state such as preferences, and passes platform/runtime edges
+  to public feature exports; it must not own page UI, feature state, or feature
+  logic.
+
 ## Open Design Translation Rule
 
 Open Design artifacts are visual intent, not a second component architecture.
 Before porting an Open Design screen, inspect `@sonar-room/ui` and map artifact
-regions to existing shared atoms, molecules, organisms, and tokens. Preserve
-page composition in the app, but promote any new reusable visual primitive,
+regions to existing shared atomic exports and tokens. Preserve page composition
+in feature page modules, but promote any new reusable atomic visual primitive,
 interaction pattern, token, or responsive behavior into `libs/ui` before use.
 
-Do not copy Open Design HTML, JSX, CSS, or generated components into an app as
-new local primitives when an equivalent shared export exists or can be added.
+Do not copy Open Design HTML, JSX, CSS, or generated components into an app or
+feature as new atomic primitives when an equivalent shared export exists or can
+be added.
 Record any deliberate local-component exception in the story design notes with
 its single-surface reason. Open Design implementation tasks must read
 `docs/WORKSPACE_IMPORT_RULES.md` and follow the project `open-design-implement`

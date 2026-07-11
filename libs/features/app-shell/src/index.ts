@@ -1,3 +1,4 @@
+export { default as AppShellLayout } from './AppShellLayout.vue';
 export {
   applyTheme,
   initializeTheme,

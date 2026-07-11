@@ -26,7 +26,9 @@ Initial business placement rules:
   orchestration belong in `libs/provider-management` or another business lib.
 - SQLite adapters and provider SDK adapters belong in infrastructure libs.
 - Vue components, Tailwind tokens, and shadcn-style primitives stay in `libs/ui`.
-- `apps/desktop` wires Tauri shell events, Vue UI, and public library APIs only.
+- `apps/desktop` wires Tauri shell events, Vue UI, public library APIs, and
+  configuration-only initialization such as routes and preferences. It must not
+  own feature state or product rules.
 
 Nx/ESLint module-boundary rules should enforce allowed dependencies by project
 tags as business libs are added.
