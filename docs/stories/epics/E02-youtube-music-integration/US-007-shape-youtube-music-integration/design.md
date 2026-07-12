@@ -2,65 +2,58 @@
 
 ## Domain Model
 
-- `PublicMusicUrl`: validated user input restricted to supported public YouTube
-  Music URL forms.
-- `PlaybackSession`: in-memory URL, current item metadata when available,
-  playback status, position, duration, volume, and capabilities.
-- `PlaybackAdapter`: contract for `loadUrl`, `play`, `pause`, `next`, `seek`,
-  `setVolume`, state observation, and disposal.
-- `YoutubeMusicPlaybackHost`: infrastructure adapter managing exactly one
-  invisible YouTube Music webview host.
+- `YouTubeEmbedUrl`: validated public YouTube video or playlist identifier.
+- `PlaybackSession`: in-memory player state, metadata when official player
+  exposes it, position, duration, volume, and capabilities.
+- `YouTubeIframePlaybackAdapter`: wraps official YouTube IFrame Player API.
 
-No account, token, provider profile, music catalog, or playback history is part
-of MVP local data.
+No account, token, cookie, profile, catalog, or playback-history data belongs to
+MVP.
 
 ## Application Flow
 
-1. User pastes URL into Provider Management.
-2. Application validates public YouTube Music URL form.
-3. Host is lazily created if no active host exists.
-4. Host attempts unauthenticated load and emits normalized state.
-5. Provider Management player bar renders state and sends commands through
-   application layer.
-6. Authentication-required, unsupported, or engine errors stop playback and
-   show mapped error state. No login window opens.
-7. Stop, URL replacement, host failure, or app exit disposes host.
+1. User pastes public YouTube URL into Provider Management.
+2. Application extracts supported video or playlist identifiers.
+3. Vue renders a visible YouTube iframe player in Provider Management.
+4. IFrame Player API emits ready/state/error events to adapter.
+5. Open Design playback bar sends commands through adapter and renders adapter
+   state.
+6. Unsupported, non-embeddable, or authentication-required content displays
+   mapped error; no login window opens.
 
 ## Interface Contract
 
-`PlaybackAdapter` exposes:
+Adapter exposes `load`, `play`, `pause`, `previous`, `next`, `seek`,
+`setVolume`, `mute`, `unmute`, `getState`, and `dispose`.
 
-- Commands: `loadUrl`, `play`, `pause`, `next`, `seek`, `setVolume`, `stop`,
-  and `dispose`.
-- State: `status`, `track`, `positionSeconds`, `durationSeconds`, `volume`,
-  `canPrevious`, `canNext`, and typed error.
-- Status: `idle`, `loading`, `buffering`, `playing`, `paused`, `ended`,
-  `authentication_required`, `unsupported`, `engine_terminated`, and `error`.
+State includes `status`, `track`, `positionSeconds`, `durationSeconds`,
+`volume`, `muted`, `canPrevious`, `canNext`, and typed error.
 
-The host remains invisible. App UI never receives raw provider DOM, cookies,
-credentials, or private provider payloads.
+Use official IFrame API state only. Do not inspect provider DOM, cookies, or
+private payloads.
 
 ## UI / Platform Impact
 
-- Provider Management owns URL input and fixed player bar; Music route remains
-  unchanged in MVP.
-- Visual source is Open Design project `Sonar-Room`, artifact
+- Provider Management owns URL input, visible player, and fixed playback bar.
+- Iframe remains visible, unobscured, and at least `200×200`; use `480×270` as
+  first desktop layout target.
+- Open Design source: `Sonar-Room` project,
   `provider-management.html`, `data-od-id="global-playback-bar"`.
 - Preserve now playing, previous, play/pause, next, current time, seek,
-  duration, and mute. Add volume slider.
-- Open Design demo timer is not reused. UI uses adapter state only.
-- Windows desktop is first supported platform. Other platforms require a new
-  validation slice.
+  duration, mute; add volume slider.
+- Native iframe controls remain available in first slice. Open Design bar is
+  supplemental and must not obscure player controls or branding.
+- Windows is first supported platform.
 
 ## Observability
 
-Log operation name, host lifecycle result, normalized status, and safe error
-class. Do not log browser session data, cookies, credentials, or raw page data.
+Log safe URL-validation outcome, player readiness, normalized player state, and
+safe player error class. Do not log credentials, cookies, or raw page content.
 
 ## Alternatives Considered
 
-1. Invisible isolated YouTube Music host: selected pending policy and technical
-   spike proof.
-2. Visible embedded webview: rejected by MVP UX requirement.
-3. Provider account connection: deferred to separate high-risk story.
-4. Private API/session automation: rejected.
+1. Visible official YouTube IFrame Player: selected.
+2. Invisible/off-screen YouTube Music host: rejected by decision 0018.
+3. Direct Tauri webview to `music.youtube.com`: rejected; not selected official
+   embed contract.
+4. Account connection: deferred.

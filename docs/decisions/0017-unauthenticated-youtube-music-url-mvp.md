@@ -49,3 +49,8 @@ Tradeoffs:
 - Verify provider policy for public URL webview playback.
 - Build PlaybackAdapter and Provider Management player component.
 - Shape account connection as separate high-risk story if selected.
+
+## Execution Status
+
+Execution is blocked by decision 0018. This decision remains product scope only;
+it does not authorize an invisible provider host contrary to provider policy.
