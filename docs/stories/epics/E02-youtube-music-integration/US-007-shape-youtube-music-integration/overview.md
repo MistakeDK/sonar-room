@@ -10,8 +10,8 @@
 
 On Windows desktop, user pastes a public supported YouTube video or playlist URL
 into Provider Management. App validates and converts it to an official YouTube
-IFrame Player embed, rendered visibly in page. Provider Management shows fixed
-Open Design playback bar driven by official player state.
+IFrame Player embed, rendered visibly in page. A global Open Design playback
+bar is mounted once by Vue Router AppShell and driven by official player state.
 
 This MVP does not connect an account and never opens login. A URL requiring
 authentication, a non-embeddable video, or unsupported YouTube Music-specific
@@ -35,4 +35,4 @@ route returns a clear error.
 - OAuth, sign-in, account persistence, library, history, or Premium state.
 - Private endpoints, cookie/profile import/export, or browser automation.
 - Spotify, SoundCloud, or generic provider playback.
-- Music-route player implementation.
+- Background playback after leaving visible player route.

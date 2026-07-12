@@ -1,0 +1,19 @@
+{
+  "name": "feature-playback",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/features/playback/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "vue-tsc -p libs/features/playback/tsconfig.lib.json --noEmit && eslint \"libs/features/playback/src/**/*.{ts,vue}\""
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": { "command": "vue-tsc -p libs/features/playback/tsconfig.lib.json --noEmit" }
+    }
+  },
+  "tags": ["scope:shared", "type:feature"]
+}

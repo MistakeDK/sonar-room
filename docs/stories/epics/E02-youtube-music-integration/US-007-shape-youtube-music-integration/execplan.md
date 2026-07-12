@@ -2,9 +2,8 @@
 
 ## Goal
 
-Build and validate a visible, official YouTube IFrame Player path inside
-Provider Management. Reuse Open Design playback-bar visual intent for
-supplemental controls.
+Build and validate `libs/features/playback`: a visible, official YouTube IFrame
+Player path plus global Open Design playback bar mounted by Vue Router AppShell.
 
 ## Scope
 
@@ -12,7 +11,8 @@ In scope:
 
 - Public supported YouTube video and playlist URLs.
 - Visible iframe player at compliant size.
-- Open Design fixed playback bar bound to official IFrame Player API state.
+- Playback feature library owning UI, session, parser, and IFrame adapter.
+- Open Design global playback bar bound to official IFrame Player API state.
 - Play/pause, previous/next when playlist capability exists, seek, duration,
   mute, and volume.
 - Windows desktop proof.
@@ -21,7 +21,7 @@ Out of scope:
 
 - Direct `music.youtube.com` webview playback.
 - Hidden/background player.
-- Any login, account, catalog, or persistent data.
+- Any login, account, catalog, persistent data, or background player.
 
 ## Risk Classification
 
@@ -39,12 +39,15 @@ Hard gates:
 
 ## Work Phases
 
-1. Parse and validate supported public URLs to video/playlist identifiers.
-2. Create visible IFrame Player technical spike in Provider Management.
-3. Define player adapter and normalized state.
-4. Bind Open Design playback bar controls to IFrame Player API.
-5. Verify errors, accessibility, provider branding, and Windows lifecycle.
-6. Record proof and update harness.
+1. Create `libs/features/playback` public entrypoint, state contracts, and URL
+   parser.
+2. Build IFrame adapter and normalized session state in playback feature.
+3. Build playback source panel and Open Design global bar in playback feature.
+4. Mount playback feature in Router AppShell outside child `RouterView`.
+5. Compose source panel into Provider Management; keep iframe visible there.
+6. Verify errors, accessibility, provider branding, route-exit disposal, and
+   Windows lifecycle.
+7. Record proof and update harness.
 
 ## Stop Conditions
 

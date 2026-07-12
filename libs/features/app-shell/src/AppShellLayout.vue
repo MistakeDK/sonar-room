@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import appLogo from "./assets/app-logo.svg";
+import { GlobalPlaybackBar } from "@sonar-room/features/playback";
 
 const navigationItems = [
   {
@@ -17,28 +18,28 @@ const navigationItems = [
 
 <template>
   <div
-    class="grid provider:grid-cols-[var(--brand-layout-sidebar-width)_minmax(0,1fr)] bg-background min-h-screen"
+    class="grid min-h-screen bg-background provider:grid-cols-[var(--brand-layout-sidebar-width)_minmax(0,1fr)]"
   >
     <aside
-      class="flex flex-col gap-brand-md bg-card px-brand py-brand-md border-border provider:border-r border-b provider:border-b-0 min-h-screen"
+      class="flex min-h-screen flex-col gap-brand-md border-b border-border bg-card px-brand py-brand-md provider:border-r provider:border-b-0"
     >
       <div
-        class="flex items-center gap-brand-sm bg-card px-brand-xs border border-border rounded-lg h-brand-xxl font-bold text-foreground text-sm"
+        class="flex h-brand-xxl items-center gap-brand-sm rounded-lg border border-border bg-card px-brand-xs text-sm font-bold text-foreground"
       >
         <img
           :src="appLogo"
           alt="Music Launcher"
           class="size-brand-xl shrink-0"
-        />
+        >
         <span class="truncate">Sonar room</span>
       </div>
 
-      <nav class="gap-1.5 grid" aria-label="Main navigation">
+      <nav class="grid gap-1.5" aria-label="Main navigation">
         <RouterLink
           v-for="item in navigationItems"
           :key="item.routeName"
           :to="item.to"
-          class="flex items-center gap-brand-sm px-brand-sm border rounded-lg h-control-lg text-sm text-left"
+          class="flex h-control-lg items-center gap-brand-sm rounded-lg border px-brand-sm text-left text-sm"
           :class="
             $route.name === item.routeName
               ? 'border-primary bg-primary font-bold text-primary-foreground'
@@ -51,8 +52,9 @@ const navigationItems = [
       </nav>
     </aside>
 
-    <main class="p-brand-md provider:p-brand-xl min-w-0">
+    <main class="min-h-screen min-w-0 p-brand-md pb-[8.25rem] provider:p-brand-xl provider:pb-[6.5rem]">
       <RouterView />
     </main>
   </div>
+  <GlobalPlaybackBar />
 </template>

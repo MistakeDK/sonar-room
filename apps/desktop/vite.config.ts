@@ -33,6 +33,12 @@ export default defineConfig({
         replacement: fileURLToPath(
           new URL("../../libs/features/music/src/index.ts", import.meta.url),
         ),
+      },
+      {
+        find: "@sonar-room/features/playback",
+        replacement: fileURLToPath(
+          new URL("../../libs/features/playback/src/index.ts", import.meta.url),
+        ),
       },      {
         find: "@sonar-room/features/provider-management",
         replacement: fileURLToPath(

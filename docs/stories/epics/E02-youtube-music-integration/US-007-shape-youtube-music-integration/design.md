@@ -6,19 +6,22 @@
 - `PlaybackSession`: in-memory player state, metadata when official player
   exposes it, position, duration, volume, and capabilities.
 - `YouTubeIframePlaybackAdapter`: wraps official YouTube IFrame Player API.
+- `PlaybackFeature`: feature-library composition containing session, visible
+  source panel, and global playback-bar UI.
 
 No account, token, cookie, profile, catalog, or playback-history data belongs to
 MVP.
 
 ## Application Flow
 
-1. User pastes public YouTube URL into Provider Management.
-2. Application extracts supported video or playlist identifiers.
-3. Vue renders a visible YouTube iframe player in Provider Management.
-4. IFrame Player API emits ready/state/error events to adapter.
-5. Open Design playback bar sends commands through adapter and renders adapter
-   state.
-6. Unsupported, non-embeddable, or authentication-required content displays
+1. Vue Router mounts AppShell parent route and `PlaybackFeature` once outside
+   child `RouterView`.
+2. Provider Management renders public `YouTubeSourcePanel` from playback lib.
+3. User pastes public YouTube URL; feature validates video or playlist ID.
+4. Source panel renders visible YouTube iframe in Provider Management.
+5. IFrame Player API emits ready/state/error events to session adapter.
+6. Global Open Design playback bar renders same session and sends commands.
+7. Unsupported, non-embeddable, or authentication-required content displays
    mapped error; no login window opens.
 
 ## Interface Contract
@@ -32,9 +35,18 @@ State includes `status`, `track`, `positionSeconds`, `durationSeconds`,
 Use official IFrame API state only. Do not inspect provider DOM, cookies, or
 private payloads.
 
-## UI / Platform Impact
+## Feature and Router Boundary
 
-- Provider Management owns URL input, visible player, and fixed playback bar.
+- `libs/features/playback` owns playback session, URL parser, IFrame adapter,
+  source-panel UI, global playback bar, and public playback exports.
+- AppShell is Router parent layout. It mounts `PlaybackFeature` outside child
+  `RouterView`, keeping playback-bar UI stable across routes.
+- Provider Management owns no playback logic. It composes `YouTubeSourcePanel`.
+- Visible IFrame host exists only in Provider Management. Route exit disposes
+  player and resets session; global bar stays mounted but idle.
+- No hidden player exists when Provider Management is not visible.
+
+## UI / Platform Impact
 - Iframe remains visible, unobscured, and at least `200×200`; use `480×270` as
   first desktop layout target.
 - Open Design source: `Sonar-Room` project,
@@ -49,6 +61,15 @@ private payloads.
 
 Log safe URL-validation outcome, player readiness, normalized player state, and
 safe player error class. Do not log credentials, cookies, or raw page content.
+
+## State Synchronization
+
+- IFrame Player API is sole playback authority.
+- Session polls `getCurrentTime()` only while playing or buffering and stops on
+  pause, end, error, or dispose.
+- Duration, volume, mute, and playlist previous/next capability come from
+  official methods/events; bar never increments local timer.
+- Seek emits one `seekTo()` command after slider release.
 
 ## Alternatives Considered
 

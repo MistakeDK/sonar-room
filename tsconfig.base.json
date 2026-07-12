@@ -49,6 +49,12 @@
       ],
       "@sonar-room/features/provider-management/*": [
         "libs/features/provider-management/src/*"
+      ],
+      "@sonar-room/features/playback": [
+        "libs/features/playback/src/index.ts"
+      ],
+      "@sonar-room/features/playback/*": [
+        "libs/features/playback/src/*"
       ]
     }
   }
